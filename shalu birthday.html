@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Shalu! ✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Fredoka', 'sans-serif'],
+                        cursive: ['Dancing Script', 'cursive'],
+                    },
+                    colors: {
+                        pastelPink: '#ffb7c5',
+                        pastelPurple: '#d8b4fe',
+                        pastelRose: '#f472b6',
+                        darkBg: '#0f0e17',
+                        cardBg: 'rgba(255, 255, 255, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f0e17;
+            font-family: 'Fredoka', sans-serif;
+            overflow-x: hidden;
+            color: #ffffff;
+        }
+
+        /* Ambient Animated Gradient Background */
+        .ambient-bg {
+            background: radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.25) 0%, transparent 45%),
+                        radial-gradient(circle at 80% 80%, rgba(216, 180, 254, 0.25) 0%, transparent 45%),
+                        radial-gradient(circle at 50% 50%, rgba(255, 183, 197, 0.15) 0%, transparent 60%);
+            background-size: 100% 100%;
+        }
+
+        /* High-Contrast Glassmorphism Styles */
+        .glass-card {
+            background: rgba(20, 16, 35, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(244, 114, 182, 0.35);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        /* High Visibility Bright Card Style */
+        .light-note-card {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e6 100%);
+            border: 2px solid #f472b6;
+            box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Floating Hearts Animation Background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            list-style: none;
+            opacity: 0;
+            animation: floatUp 12s infinite linear;
+            color: rgba(244, 114, 182, 0.35);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.7;
+            }
+            80% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Custom Cute Button */
+        .cute-btn {
+            background: linear-gradient(135deg, #f472b6 0%, #c084fc 100%);
+            box-shadow: 0 4px 20px rgba(244, 114, 182, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cute-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.6);
+        }
+
+        .cute-btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Flip Card Styling */
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Candle Flame Flicker */
+        .flame {
+            background: radial-gradient(ellipse at bottom, #fef08a 0%, #f97316 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #fbbf24, 0 0 25px #f97316;
+            animation: flicker 1.2s infinite alternate ease-in-out;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
+            50% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            100% { transform: scale(0.95) rotate(-1deg); opacity: 0.9; }
+        }
+
+        /* Pulse glow */
+        .pulse-glow {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(216, 180, 254, 0.6); }
+        }
+
+        /* Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen ambient-bg flex flex-col items-center justify-between relative selection:bg-pink-500 selection:text-white">
+
+    <!-- Floating Background Hearts -->
+    <ul class="heart-bg" id="heartContainer"></ul>
+
+    <!-- Top Music & Progress Navigation Bar -->
+    <header class="w-full max-w-4xl px-6 pt-6 z-20 flex justify-between items-center">
+        <!-- Progress Pills -->
+        <div class="flex items-center space-x-2 bg-black/60 backdrop-blur-md px-5 py-2.5 rounded-full border border-pink-400/40">
+            <span class="text-xs font-bold text-pink-300 uppercase tracking-wider mr-1">Step</span>
+            <div id="progressDots" class="flex space-x-2">
+                <!-- Dots populated dynamically -->
+            </div>
+        </div>
+
+        <!-- Music Toggle Button -->
+        <button id="musicBtn" onclick="toggleMusic()" class="flex items-center space-x-2 bg-pink-500 hover:bg-pink-600 text-white font-bold px-5 py-2.5 rounded-full shadow-lg border border-pink-300 transition-all">
+            <i id="musicIcon" class="fas fa-music text-white"></i>
+            <span id="musicText" class="text-xs font-extrabold uppercase tracking-wide">Play Music</span>
+        </button>
+    </header>
+
+    <!-- Main Content Dynamic Container -->
+    <main class="w-full max-w-4xl px-4 py-6 z-10 flex-grow flex items-center justify-center">
+
+        <!-- PAGE 1: LANDING / START PAGE -->
+        <section id="page-1" class="page-step w-full flex flex-col items-center text-center space-y-8 animate-fadeIn">
+            <div class="relative inline-block">
+                <!-- Avatar Photo Frame with Yellow Flower Portrait -->
+                <div class="w-36 h-36 md:w-44 md:h-44 mx-auto rounded-full overflow-hidden border-4 border-pink-400 p-1 bg-gradient-to-tr from-pink-500 to-purple-500 shadow-[0_0_30px_rgba(244,114,182,0.6)] pulse-glow mb-4">
+                    <img src="input_file_3.png" alt="Shalu" class="w-full h-full object-cover rounded-full">
+                </div>
+                <span class="absolute -top-6 -left-6 text-5xl animate-bounce">👑</span>
+                <span class="absolute -bottom-4 -right-4 text-5xl animate-pulse">✨</span>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-wide text-white drop-shadow-[0_4px_12px_rgba(244,114,182,0.8)] py-2">
+                    Happy Birthday,<br><span class="font-cursive text-6xl md:text-8xl text-pink-400 font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]">Shalu!</span> ✨
+                </h1>
+            </div>
+
+            <div class="glass-card p-6 md:p-8 rounded-3xl max-w-lg mx-auto transform hover:scale-[1.01] transition-transform border-2 border-pink-400/40">
+                <p class="text-xl md:text-2xl text-white font-bold leading-relaxed drop-shadow">
+                    Welcome to your very own magical corner of the internet! 🌸<br><br>
+                    Today is all about celebrating <span class="text-pink-300 underline decoration-pink-400 decoration-wavy">YOU</span>—your smile, your warmth, and the immense joy you bring into the world.
+                </p>
+                <div class="mt-6 text-base text-pink-200 font-bold italic bg-pink-950/60 py-2 px-4 rounded-xl border border-pink-400/30">
+                    "Ready to unlock your birthday surprises?"
+                </div>
+            </div>
+
+            <button onclick="nextPage()" class="cute-btn text-white font-black text-xl px-10 py-4 rounded-full flex items-center space-x-3 text-shadow group border-2 border-white/50">
+                <span>Start the Journey 💖</span>
+                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </section>
+
+        <!-- PAGE 2: CUTE & READABLE NOTES -->
+        <section id="page-2" class="page-step hidden w-full flex flex-col items-center text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="text-3xl md:text-5xl font-black text-pink-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">Cute Notes & Gallery 💌</h2>
+                <p class="text-base text-pink-100 font-bold bg-pink-950/80 px-4 py-1.5 rounded-full border border-pink-400/30">Tap any card to flip and reveal cute notes & gorgeous photos!</p>
+            </div>
+
+            <!-- Grid of Flip Cards featuring Photos + Text -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-4xl my-4">
+                
+                <!-- Photo Card 1: Black Saree Full Pose -->
+                <div class="glass-card p-3 rounded-2xl border-2 border-pink-400/60 shadow-xl transform hover:-rotate-1 transition-transform">
+                    <div class="h-64 rounded-xl overflow-hidden border border-pink-300/40">
+                        <img src="input_file_0.png" alt="Shalu Black Saree" class="w-full h-full object-cover">
+                    </div>
+                    <p class="mt-2 text-sm font-extrabold text-pink-300">Absolute Elegance ✨</p>
+                </div>
+
+                <!-- Card 2: Flip Note -->
+                <div class="flip-card h-72 cursor-pointer" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner relative w-full h-full text-center rounded-2xl">
+                        <div class="flip-card-front absolute inset-0 flex flex-col items-center justify-center p-4 rounded-2xl glass-card border-2 border-pink-400">
+                            <span class="text-5xl mb-2">🌸</span>
+                            <h3 class="font-extrabold text-xl text-pink-300">Cute Note #1</h3>
+                            <p class="text-xs font-bold text-white bg-pink-600/80 px-3 py-1 rounded-full mt-2">Tap to Open ✨</p>
+                        </div>
+                        <div class="flip-card-back absolute inset-0 flex flex-col items-center justify-center p-5 rounded-2xl light-note-card">
+                            <h4 class="font-bold text-pink-600 text-sm mb-1 uppercase tracking-wider">Sunshine Smile ☀️</h4>
+                            <p class="text-base font-bold text-gray-900 leading-snug">
+                                "Shalu, your laugh has this magical power to instantly turn anyone's dark day into bright sunshine!"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Card 2: Cyan Saree Full Pose -->
+                <div class="glass-card p-3 rounded-2xl border-2 border-pink-400/60 shadow-xl transform hover:rotate-1 transition-transform">
+                    <div class="h-64 rounded-xl overflow-hidden border border-pink-300/40">
+                        <img src="input_file_1.png" alt="Shalu Cyan Saree" class="w-full h-full object-cover">
+                    </div>
+                    <p class="mt-2 text-sm font-extrabold text-pink-300">Grace & Beauty 🦋</p>
+                </div>
+
+                <!-- Card 4: Flip Note -->
+                <div class="flip-card h-72 cursor-pointer" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner relative w-full h-full text-center rounded-2xl">
+                        <div class="flip-card-front absolute inset-0 flex flex-col items-center justify-center p-4 rounded-2xl glass-card border-2 border-pink-400">
+                            <span class="text-5xl mb-2">⭐</span>
+                            <h3 class="font-extrabold text-xl text-pink-300">Cute Note #2</h3>
+                            <p class="text-xs font-bold text-white bg-pink-600/80 px-3 py-1 rounded-full mt-2">Tap to Open ✨</p>
+                        </div>
+                        <div class="flip-card-back absolute inset-0 flex flex-col items-center justify-center p-5 rounded-2xl light-note-card">
+                            <h4 class="font-bold text-pink-600 text-sm mb-1 uppercase tracking-wider">Brightest Star 🌟</h4>
+                            <p class="text-base font-bold text-gray-900 leading-snug">
+                                "May your year ahead be filled with dream-come-true moments, zero stress, and endless joy!"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex space-x-4 pt-2">
+                <button onclick="prevPage()" class="px-7 py-3.5 rounded-full bg-white/20 hover:bg-white/30 text-white font-extrabold transition-all border border-white/40">
+                    <i class="fas fa-arrow-left mr-2"></i> Back
+                </button>
+                <button onclick="nextPage()" class="cute-btn text-white font-black px-9 py-3.5 rounded-full flex items-center space-x-2 border-2 border-white/40">
+                    <span>Next Page ✨</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PAGE 3: LOVELY INTERACTIVE QUESTIONS -->
+        <section id="page-3" class="page-step hidden w-full flex flex-col items-center text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="text-3xl md:text-5xl font-black text-pink-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">Cute Birthday Quiz 💭</h2>
+                <p class="text-base text-pink-100 font-bold bg-pink-950/80 px-4 py-1.5 rounded-full border border-pink-400/30">Answer these crucial questions, Shalu!</p>
+            </div>
+
+            <div id="quizContainer" class="w-full max-w-lg glass-card p-6 md:p-8 rounded-3xl relative border-2 border-pink-400/50">
+                <!-- Cute Photo Header for Quiz -->
+                <div class="w-28 h-28 mx-auto -mt-12 mb-4 rounded-full border-4 border-pink-300 overflow-hidden shadow-lg">
+                    <img src="input_file_2.png" alt="Shalu Portrait" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Question 1 -->
+                <div class="quiz-step space-y-6" data-quiz="1">
+                    <h3 class="text-2xl font-black text-white">1. Who is absolute royalty today? 👑</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left flex justify-between items-center text-lg font-bold text-white">
+                            <span>A) Obviously Shalu!</span>
+                            <span class="text-xl">💖</span>
+                        </button>
+                        <button onclick="answerQuiz(false, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left flex justify-between items-center text-lg font-bold text-white">
+                            <span>B) Birthday Girl Shalu!</span>
+                            <span class="text-xl">✨</span>
+                        </button>
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left flex justify-between items-center text-lg font-bold text-white">
+                            <span>C) Both A & B above!</span>
+                            <span class="text-xl">🎉</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-step hidden space-y-6" data-quiz="2">
+                    <h3 class="text-2xl font-black text-white">2. How much cake should Shalu eat today? 🍰</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left text-lg font-bold text-white">
+                            <span>A) Just a tiny slice</span>
+                        </button>
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left text-lg font-bold text-white">
+                            <span>B) As much as humanly possible! 😋</span>
+                        </button>
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left text-lg font-bold text-white">
+                            <span>C) The entire cake! No sharing! 🎂</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-step hidden space-y-6" data-quiz="3">
+                    <h3 class="text-2xl font-black text-white">3. What is the official rule for your birthday? 📜</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left text-lg font-bold text-white">
+                            <span>A) Zero stress allowed all day 🌈</span>
+                        </button>
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left text-lg font-bold text-white">
+                            <span>B) Smile every 5 minutes minimum 😸</span>
+                        </button>
+                        <button onclick="answerQuiz(true, this)" class="w-full py-4 px-5 rounded-2xl bg-white/10 border-2 border-pink-400/40 hover:bg-pink-500 hover:border-white transition-all text-left text-lg font-bold text-white">
+                            <span>C) Receive endless love & compliments 💝</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Feedback Toast -->
+                <div id="quizFeedback" class="hidden mt-4 p-4 rounded-xl bg-pink-500 text-white font-extrabold text-base shadow-lg animate-bounce border-2 border-white">
+                    Correct! You are 100% awesome! 🎉
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex space-x-4">
+                <button onclick="prevPage()" class="px-7 py-3.5 rounded-full bg-white/20 text-white hover:bg-white/30 font-extrabold transition-all border border-white/40">
+                    <i class="fas fa-arrow-left mr-2"></i> Back
+                </button>
+                <button onclick="nextPage()" class="cute-btn text-white font-black px-9 py-3.5 rounded-full flex items-center space-x-2 border-2 border-white/40">
+                    <span>Next 🌸</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PAGE 4: MEMORY LANE & COMPLIMENT GENERATOR -->
+        <section id="page-4" class="page-step hidden w-full flex flex-col items-center text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="text-3xl md:text-5xl font-black text-pink-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">Compliment Jar 🔮</h2>
+                <p class="text-base text-pink-100 font-bold bg-pink-950/80 px-4 py-1.5 rounded-full border border-pink-400/30">Tap the magic jar whenever you need a boost!</p>
+            </div>
+
+            <div class="glass-card p-6 md:p-8 rounded-3xl max-w-2xl w-full flex flex-col md:flex-row items-center gap-6 border-2 border-pink-400/50">
+                <!-- Polaroid Photo Card -->
+                <div class="w-48 p-2.5 bg-white rounded-2xl shadow-2xl transform -rotate-2 border border-pink-300 flex-shrink-0">
+                    <div class="h-56 rounded-xl overflow-hidden">
+                        <img src="input_file_1.png" alt="Shalu" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-center font-cursive text-xl font-bold text-gray-800 mt-2">Shalu ✨</p>
+                </div>
+
+                <!-- Interactive Jar & Text Section -->
+                <div class="flex-grow flex flex-col items-center space-y-4">
+                    <!-- Interactive Jar Icon -->
+                    <div onclick="generateCompliment()" class="cursor-pointer group relative">
+                        <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center border-4 border-white shadow-2xl group-hover:scale-110 transition-transform pulse-glow">
+                            <span class="text-6xl group-hover:rotate-12 transition-transform">🏺</span>
+                        </div>
+                        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white text-pink-600 font-black text-xs px-3 py-1 rounded-full shadow-xl border border-pink-400">TAP ME!</span>
+                    </div>
+
+                    <!-- Display Compliment -->
+                    <div class="min-h-[90px] flex items-center justify-center p-4 rounded-2xl light-note-card w-full">
+                        <p id="complimentText" class="text-base md:text-lg text-gray-900 font-extrabold leading-snug transition-all duration-300">
+                            "Click the magical jar above to pull out a special compliment, Shalu!" ✨
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex space-x-4">
+                <button onclick="prevPage()" class="px-7 py-3.5 rounded-full bg-white/20 text-white hover:bg-white/30 font-extrabold transition-all border border-white/40">
+                    <i class="fas fa-arrow-left mr-2"></i> Back
+                </button>
+                <button onclick="nextPage()" class="cute-btn text-white font-black px-9 py-3.5 rounded-full flex items-center space-x-2 border-2 border-white/40">
+                    <span>Next 🎁</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PAGE 5: GRAND BIRTHDAY WISH & CAKE -->
+        <section id="page-5" class="page-step hidden w-full flex flex-col items-center text-center space-y-6">
+            <div class="space-y-2">
+                <span class="text-5xl">🎉🎂🥳</span>
+                <h2 class="text-4xl md:text-6xl font-black text-white drop-shadow-[0_4px_12px_rgba(244,114,182,0.9)]">
+                    Make a Wish, Shalu!
+                </h2>
+                <p class="text-base text-pink-100 font-bold bg-pink-950/80 px-4 py-1.5 rounded-full border border-pink-400/30">Click or Tap the candle flame to blow it out!</p>
+            </div>
+
+            <!-- Hero Layout with Photo & Cake Side-by-Side -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-3xl my-2">
+                <!-- Hero Photo Frame (Black Saree Pose) -->
+                <div class="w-48 md:w-56 p-3 bg-white/10 glass-card rounded-3xl border-2 border-pink-400 shadow-2xl transform hover:scale-105 transition-transform">
+                    <div class="h-64 rounded-2xl overflow-hidden border border-pink-300/40">
+                        <img src="input_file_0.png" alt="Shalu Birthday Queen" class="w-full h-full object-cover">
+                    </div>
+                    <p class="mt-2 text-base font-black text-pink-300">Birthday Queen 👑</p>
+                </div>
+
+                <!-- Birthday Cake Illustration -->
+                <div class="relative cursor-pointer" onclick="blowCandle()">
+                    <!-- Candle Flame -->
+                    <div id="flame" class="flame absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-9"></div>
+                    <!-- Candle Stick -->
+                    <div class="w-4 h-10 bg-gradient-to-b from-yellow-200 to-pink-400 mx-auto rounded-t-sm shadow-md"></div>
+                    
+                    <!-- Cake Top Layer -->
+                    <div class="w-40 h-14 bg-pink-400 rounded-t-2xl border-b-4 border-pink-300 flex items-center justify-center space-x-3 shadow-inner">
+                        <span class="text-sm">🍓</span>
+                        <span class="text-sm">🫐</span>
+                        <span class="text-sm">🍓</span>
+                    </div>
+                    <!-- Cake Middle Layer -->
+                    <div class="w-52 h-16 bg-purple-400 rounded-t-lg border-b-4 border-purple-300 flex items-center justify-around px-4">
+                        <span class="w-4 h-4 rounded-full bg-white"></span>
+                        <span class="w-4 h-4 rounded-full bg-white"></span>
+                        <span class="w-4 h-4 rounded-full bg-white"></span>
+                    </div>
+                    <!-- Cake Base Layer -->
+                    <div class="w-64 h-18 bg-pink-500 rounded-t-lg shadow-2xl flex items-center justify-center border-t-2 border-white/40">
+                        <span class="text-base font-black tracking-widest text-white uppercase drop-shadow">HAPPY BIRTHDAY SHALU</span>
+                    </div>
+                    <!-- Cake Stand -->
+                    <div class="w-72 h-4 bg-gray-200 rounded-full mx-auto shadow-xl"></div>
+                </div>
+            </div>
+
+            <!-- Unique Birthday Letter -->
+            <div class="glass-card p-6 md:p-8 rounded-3xl max-w-xl text-left space-y-4 border-2 border-pink-400">
+                <h3 class="font-cursive text-4xl text-pink-300 font-bold">Dearest Shalu,</h3>
+                <p class="text-base md:text-lg text-white font-extrabold leading-relaxed">
+                    On this special day, I hope you take a moment to realize how wonderful you truly are. May your coming year be overflowing with laughter, beautiful moments, genuine peace, and unconditional happiness. 
+                </p>
+                <p class="text-base md:text-lg text-white font-extrabold leading-relaxed">
+                    Keep shining bright, reaching for the stars, and being your wonderfully unique self. Wishing you the happiest birthday ever! 💖✨
+                </p>
+                <div class="text-right font-cursive text-3xl text-pink-300 font-bold pt-2">
+                    Always cheering for you, 🥂
+                </div>
+            </div>
+
+            <!-- Celebration Action Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button onclick="prevPage()" class="px-7 py-3.5 rounded-full bg-white/20 text-white hover:bg-white/30 font-extrabold transition-all border border-white/40">
+                    <i class="fas fa-arrow-left mr-2"></i> Back
+                </button>
+                <button onclick="triggerFireworks()" class="cute-btn text-white font-black px-9 py-3.5 rounded-full flex items-center space-x-2 border-2 border-white/40 shadow-xl">
+                    <span>Celebrate Fireworks! 🎆</span>
+                </button>
+                <button onclick="restartJourney()" class="px-7 py-3.5 rounded-full bg-purple-600/60 hover:bg-purple-600/80 border-2 border-purple-300 text-white font-black transition-all">
+                    <i class="fas fa-redo mr-2"></i> Start Over
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-4 text-center text-xs text-purple-300/60 z-10">
+        Crafted with extra love for Shalu's Special Day 💕
+    </footer>
+
+    <!-- Audio Player Synthesizer (Web Audio API for background music without external links) -->
+    <script>
+        // State variables
+        let currentPage = 1;
+        const totalPages = 5;
+        let isCandleBlown = false;
+
+        // Initialize Background Hearts Animation
+        function initHearts() {
+            const container = document.getElementById('heartContainer');
+            const heartIcons = ['💖', '🌸', '✨', '💕', '🎀', '💗'];
+            const heartCount = 20;
+
+            for (let i = 0; i < heartCount; i++) {
+                const li = document.createElement('li');
+                li.className = 'floating-heart';
+                li.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                li.style.left = `${Math.random() * 100}%`;
+                li.style.animationDelay = `${Math.random() * 10}s`;
+                li.style.animationDuration = `${8 + Math.random() * 8}s`;
+                li.style.fontSize = `${14 + Math.random() * 16}px`;
+                container.appendChild(li);
+            }
+        }
+
+        // Render Navigation Progress Dots
+        function updateProgress() {
+            const container = document.getElementById('progressDots');
+            container.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    i === currentPage 
+                        ? 'bg-pink-400 w-6' 
+                        : i < currentPage 
+                            ? 'bg-pink-300/60' 
+                            : 'bg-white/20'
+                }`;
+                container.appendChild(dot);
+            }
+        }
+
+        // Dynamic Page Navigation
+        function showPage(pageNumber) {
+            document.querySelectorAll('.page-step').forEach((page) => {
+                page.classList.add('hidden');
+            });
+            const activePage = document.getElementById(`page-${pageNumber}`);
+            if (activePage) {
+                activePage.classList.remove('hidden');
+                activePage.classList.add('animate-fadeIn');
+            }
+            currentPage = pageNumber;
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Trigger celebration on reaching page 5
+            if (pageNumber === 5) {
+                launchConfetti();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function restartJourney() {
+            showPage(1);
+        }
+
+        // Flip Card Action
+        function toggleFlip(cardElement) {
+            cardElement.classList.toggle('flipped');
+        }
+
+        // Interactive Quiz Logic
+        let currentQuizStep = 1;
+        function answerQuiz(isCorrect, element) {
+            const feedback = document.getElementById('quizFeedback');
+            feedback.classList.remove('hidden');
+
+            // Burst small confetti
+            confetti({
+                particleCount: 25,
+                spread: 50,
+                origin: { y: 0.6 }
+            });
+
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+                const currentStepEl = document.querySelector(`[data-quiz="${currentQuizStep}"]`);
+                if (currentStepEl) {
+                    currentStepEl.classList.add('hidden');
+                }
+                
+                currentQuizStep = (currentQuizStep % 3) + 1;
+                const nextStepEl = document.querySelector(`[data-quiz="${currentQuizStep}"]`);
+                if (nextStepEl) {
+                    nextStepEl.classList.remove('hidden');
+                }
+            }, 1200);
+        }
+
+        // Compliments Generator Array
+        const compliments = [
+            "Shalu, your positive energy can brighten up any room instantly! 🌟",
+            "You have an absolutely fantastic sense of humor and style! ✨",
+            "You are genuinely one of the most kind-hearted souls! 💕",
+            "Your determination and strength are super inspiring! 💪🌸",
+            "Everything is 100x more fun when you are around! 🎈",
+            "Never stop smiling, because your smile is literally contagious! 😊"
+        ];
+
+        function generateCompliment() {
+            const compText = document.getElementById('complimentText');
+            const randomIndex = Math.floor(Math.random() * compliments.length);
+            
+            compText.style.opacity = 0;
+            setTimeout(() => {
+                compText.innerText = `"${compliments[randomIndex]}"`;
+                compText.style.opacity = 1;
+            }, 200);
+
+            confetti({
+                particleCount: 20,
+                spread: 40,
+                origin: { y: 0.5 }
+            });
+        }
+
+        // Blow out candle action
+        function blowCandle() {
+            const flame = document.getElementById('flame');
+            if (!isCandleBlown) {
+                flame.style.display = 'none';
+                isCandleBlown = true;
+                launchConfetti();
+            } else {
+                flame.style.display = 'block';
+                isCandleBlown = false;
+            }
+        }
+
+        // Confetti Fireworks Effect
+        function launchConfetti() {
+            const count = 200;
+            const defaults = {
+                origin: { y: 0.7 }
+            };
+
+            function fire(particleRatio, opts) {
+                confetti({
+                    ...defaults,
+                    ...opts,
+                    particleCount: Math.floor(count * particleRatio)
+                });
+            }
+
+            fire(0.25, {
+                spread: 26,
+                startVelocity: 55,
+            });
+            fire(0.2, {
+                spread: 60,
+            });
+            fire(0.35, {
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 45,
+            });
+        }
+
+        function triggerFireworks() {
+            launchConfetti();
+        }
+
+        // Web Audio Synthesizer for Pleasant Background Melody (No external dependencies)
+        let audioCtx = null;
+        let isPlaying = false;
+        let melodyInterval = null;
+
+        function playSoftMelody() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25]; // C major scale
+            let step = 0;
+
+            melodyInterval = setInterval(() => {
+                if (!isPlaying) return;
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                // Cute chime timbre
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+
+                step = (step + Math.floor(Math.random() * 3) + 1);
+            }, 600);
+        }
+
+        function toggleMusic() {
+            const musicIcon = document.getElementById('musicIcon');
+            const musicText = document.getElementById('musicText');
+
+            if (!isPlaying) {
+                isPlaying = true;
+                playSoftMelody();
+                musicIcon.className = "fas fa-volume-high text-pink-400 animate-pulse";
+                musicText.innerText = "Music On 🎵";
+            } else {
+                isPlaying = false;
+                if (melodyInterval) clearInterval(melodyInterval);
+                musicIcon.className = "fas fa-music text-pink-400";
+                musicText.innerText = "Play Music";
+            }
+        }
+
+        // Initialize App on DOM Ready
+        window.addEventListener('DOMContentLoaded', () => {
+            initHearts();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
